@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.study.basic.dao.ClsMapper" >
+  <resultMap id="BaseResultMap" type="com.study.basic.pojo.Cls" >
+    <id column="cls_id" property="clsId" jdbcType="INTEGER" />
+    <result column="cls_name" property="clsName" jdbcType="VARCHAR" />
+    <result column="teacher_id" property="teacherId" jdbcType="INTEGER" />
+    <result column="manager_id" property="managerId" jdbcType="INTEGER" />
+    <result column="clsroom_id" property="clsroomId" jdbcType="INTEGER" />
+    <result column="cls_status" property="clsStatus" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    cls_id, cls_name, teacher_id, manager_id, clsroom_id, cls_status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from cls
+    where cls_id = #{clsId,jdbcType=INTEGER}
+  </select>
+  
+   <select id="listAllCls" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from cls 
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from cls
+    where cls_id = #{clsId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.study.basic.pojo.Cls" >
+    insert into cls (cls_id, cls_name, teacher_id, 
+      manager_id, clsroom_id, cls_status
+      )
+    values (#{clsId,jdbcType=INTEGER}, #{clsName,jdbcType=VARCHAR}, #{teacherId,jdbcType=INTEGER}, 
+      #{managerId,jdbcType=INTEGER}, #{clsroomId,jdbcType=INTEGER}, #{clsStatus,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.study.basic.pojo.Cls" useGeneratedKeys="true" keyColumn=" cls_id" keyProperty="clsId">
+    insert into cls
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="clsId != null" >
+        cls_id,
+      </if>
+      <if test="clsName != null" >
+        cls_name,
+      </if>
+      <if test="teacherId != null" >
+        teacher_id,
+      </if>
+      <if test="managerId != null" >
+        manager_id,
+      </if>
+      <if test="clsroomId != null" >
+        clsroom_id,
+      </if>
+      <if test="clsStatus != null" >
+        cls_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="clsId != null" >
+        #{clsId,jdbcType=INTEGER},
+      </if>
+      <if test="clsName != null" >
+        #{clsName,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherId != null" >
+        #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="managerId != null" >
+        #{managerId,jdbcType=INTEGER},
+      </if>
+      <if test="clsroomId != null" >
+        #{clsroomId,jdbcType=INTEGER},
+      </if>
+      <if test="clsStatus != null" >
+        #{clsStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.study.basic.pojo.Cls" >
+    update cls
+    <set >
+      <if test="clsName != null" >
+        cls_name = #{clsName,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherId != null" >
+        teacher_id = #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="managerId != null" >
+        manager_id = #{managerId,jdbcType=INTEGER},
+      </if>
+      <if test="clsroomId != null" >
+        clsroom_id = #{clsroomId,jdbcType=INTEGER},
+      </if>
+      <if test="clsStatus != null" >
+        cls_status = #{clsStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where cls_id = #{clsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.study.basic.pojo.Cls" >
+    update cls
+    set cls_name = #{clsName,jdbcType=VARCHAR},
+      teacher_id = #{teacherId,jdbcType=INTEGER},
+      manager_id = #{managerId,jdbcType=INTEGER},
+      clsroom_id = #{clsroomId,jdbcType=INTEGER},
+      cls_status = #{clsStatus,jdbcType=INTEGER}
+    where cls_id = #{clsId,jdbcType=INTEGER}
+  </update>
+</mapper>

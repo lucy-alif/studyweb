@@ -1,0 +1,249 @@
+@charset "utf-8";
+/*前台样式表*/
+* {
+	padding: 0;
+	margin: 0;
+	font-family: "微软雅黑";
+}
+body {
+	background-color: whitesmoke;
+}
+.question_title a{
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width:600px;
+	white-space: nowrap;
+}
+a {
+	text-decoration: none;
+	color: darkslategrey;
+}
+a:hover {
+	opacity: 0.7;
+}
+li {
+	list-style: none;
+}
+header {
+	width: 100%;
+	height: 40px;
+	background-color: #37B45D;
+}
+#headerbar{
+	width:1200px;
+	height:40px;
+	margin: 0px auto;
+	background-color: #37B45D;
+	position: relative;/*log绝对定位以header为基准*/
+}
+#headerbar a {
+	color: white;
+}
+#headerbar li{
+	display: inline-block;/*水平排列*/
+	line-height: 40px;/*line-height和height设置相同值,使文字垂直居中*/
+	height: 40px;
+	text-align: center;
+}
+#navigation{
+	position:absolute;
+	top:0;
+	left:0;
+}
+#navigation li{
+	width:60px;
+}
+.log span {
+	border: 1px solid white;
+}
+.log {
+	position:absolute;
+	top:0;
+	right:0;
+}
+.log li {
+	width: auto;
+	padding-right: 15px;
+}
+#title{
+	height: 71px;
+	background-color: #F4F1EC;
+	border-bottom: 1px solid #DEDCDD;
+}
+#titlebar{
+	height:71px;
+	width:1200px;
+	margin:0 auto;
+	background: url("../img/question_header.jpg");
+}
+#leftquestion{
+	height:71px;
+	line-height: 71px;
+	float:left;
+}
+#leftquestion a{
+	color:#3DB159;
+	font-family: "黑体";
+	font-size:16px;
+}
+#rightquestion{
+	height:31px;
+	line-height: 31px;
+	float:right;
+	width:270px;
+	border-radius: 15px;/*边框圆角*/
+	background-color: white;
+	position:relative;
+	top:20px;
+}
+#rightquestion input{
+	margin-left: 12px;
+	border-style: none;/*去掉文本框的框*/
+	outline: none;/*文本框获得焦点的时候，不显示边框*/
+	width:230px;
+}
+#rightquestion:hover{ /*通过伪类设置div鼠标悬停的效果*/
+	border: 1px solid #4eaa4c;
+}
+#main{
+	width:1200px;
+	margin:0px auto;
+	position: relative;
+}
+#content {
+	width: 870px;
+	min-height: 800px;
+	background-color: white;
+	position: relative;
+	padding: 20px 30px;
+}
+#headlist{
+	width:100%;
+	height:82px;
+	margin-bottom: 20px;
+}
+#menu{
+	height:46px;
+	border-bottom: 1px solid gainsboro;
+}
+#menu a{
+	line-height:46px;
+	font-size: 18px;
+	font-weight: 700;
+	padding:10px 25px;
+	color:#6A6A6A;
+}
+.menu-item{
+	color:#4eaa4c;
+	border-bottom:3px solid #4eaa4c;
+}
+#order{
+	height:20px;
+	margin-top: 15px;
+	font-size:14px;
+	float:right;
+}
+#order a{
+	color:#000000;
+	margin:0px 7px;
+}
+.box {
+	height: 99px;
+	padding: 15px 0px;
+}
+.box-f1 {
+	height: 99px;
+	width: 176px;
+	float:left;
+}
+.box-f1 ul {
+	width: 176px;
+	height: 48px;
+}
+.box-f1 ul li {
+	width: 55px;
+	height: 48px;
+	font-size: 16px;
+	text-align: center;
+	float: left;
+}
+.box-f1 ul li span {
+	width: 55px;
+	height: 19px;
+	float: left;
+}
+.box-f2 {
+	height: 99px;
+	width: 608px;
+	letter-spacing: 3px;
+	float:left;
+}
+.question_title {
+	height: 25px;
+	line-height: 25px;
+	width: 100%;
+	font-size: 16px;
+}
+.question_content {
+	width: 100%;
+	min-height: 25px;
+	line-height: 25px;
+	font-size:12px;
+}
+.question_time {
+	width: 100%;
+	height: 25px;
+	line-height: 25px;
+	font-size: 12px;
+}
+.question_time span {
+	float: left;
+}
+.question_time .tag {
+	background-color: #E1ECF4;
+	color: #856D8E;
+	width:66px;
+	text-align: center;
+	margin:0px 5px;
+}
+.box-f3 {
+	height: 99px;
+	width: 56px;
+	float:left;
+	margin-left:20px;
+}
+.box-f3 img {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+}
+aside {
+	width: 190px;
+	height: 800px;
+	background-color: white;
+	padding: 5px 20px;
+	position: absolute;
+	left: 960px;
+	top: 20px;
+}
+aside h4 {
+	margin: 6px 0px 13px 8px;
+	font-weight: 400;
+	line-height: 22px;
+	height: 22px;
+}
+aside .tag {
+	float: left;
+	width: 60px;
+	min-width: 40px;
+	margin: 4px 6px 4px 20px;
+	background-color: #E1ECF4;
+	color: #856D8E;
+	font-size: 14px;
+	padding: 3px 0px;
+	text-align: center;
+}
+aside .tag:hover {
+	cursor: pointer;
+}

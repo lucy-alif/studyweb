@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:jpa="http://www.springframework.org/schema/data/jpa" 
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:tx="http://www.springframework.org/schema/tx" 
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:cache="http://www.springframework.org/schema/cache"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+    http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context-4.0.xsd
+    http://www.springframework.org/schema/mvc 
+    http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+    http://www.springframework.org/schema/tx 
+    http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+    http://www.springframework.org/schema/util 
+    http://www.springframework.org/schema/util/spring-util-4.0.xsd
+	http://www.springframework.org/schema/cache 
+	http://www.springframework.org/schema/cache/spring-cache.xsd">
+    
+    
+   	<!-- 包扫描:将Controller和Service添加到容器里 -->
+    <context:component-scan base-package="com.study"></context:component-scan>
+    
+    <!-- 支持注解的处理器和支持注解的映射器 -->
+    <mvc:annotation-driven></mvc:annotation-driven>
+    
+    <!-- 静态资源映射 -->
+    <mvc:resources mapping="/js/**" location="/js/" />
+	<mvc:resources mapping="/css/**" location="/css/" />
+	<mvc:resources mapping="/images/**" location="/images/" />
+	<!-- 
+	会在Spring MVC上下文中定义一个org.springframework.web.servlet.resource.DefaultServletHttpRequestHandler， 
+	它会像一个检查员，对进入DispatcherServlet的URL进行筛查，如果发现是静态资源的请求，就将该请求转由Web应用服务器默认的Servlet处理， 
+	如果不是静态资源的请求，才由DispatcherServlet继续处理 
+	-->
+	<mvc:default-servlet-handler />
+	
+	<!-- 视图解析器 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    	<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+    	<property name="prefix" value="/WEB-INF/jsp/"/>
+    	<property name="suffix" value=".jsp"/>
+    </bean>
+    
+    <!-- 数据库连接池 -->
+    <bean id="ds" class="org.apache.commons.dbcp.BasicDataSource">
+    	<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+    	<property name="url" value="jdbc:mysql://localhost:3306/studyweb"></property>
+    	<property name="username" value="root"></property>
+    	<property name="password" value="lucy123"></property>
+    </bean>
+	<!-- 事务管理器 -->
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    	<property name="dataSource">
+    		<ref bean="ds"/>
+    	</property>
+    </bean>
+    <!-- 使用事务注解 -->
+    <tx:annotation-driven transaction-manager="txManager" />
+    
+    <!-- 配置SqlSessionFactory -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    	<property name="configLocation">
+    		<value>classpath:SqlMapConfig.xml</value><!-- myBatis的配置文件的路径 -->
+    	</property>
+    	<property name="dataSource">
+    		<ref bean="ds"/>
+    	</property>
+    </bean>
+    
+    <!--  尝试使用Redis-->
+    <context:property-placeholder location="classpath:redis.properties" />
+	<!-- 配置reids连接池配置信息 -->
+	<bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxIdle" value="${redis.maxIdle}" />
+		<property name="maxTotal" value="${redis.maxTotal}" />
+		<property name="maxWaitMillis" value="${redis.maxWaitMillis}" />
+		<property name="testOnBorrow" value="${redis.testOnBorrow}" />
+	</bean>
+	<!-- 配置redis连接池工厂 -->
+	<bean id="jedisConnectionFactory"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+		destroy-method="destroy">
+		<property name="hostName" value="${redis.host}" />
+		<property name="port" value="${redis.port}" />
+		<property name="timeout" value="${redis.timeout}" />
+		<property name="usePool" value="true" />
+		<property name="poolConfig" ref="poolConfig" />
+	</bean>
+	
+	<!-- 序列化类 -->
+	<bean id="keySerializer"
+      	class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+	<bean id="jackson2JsonRedisSerializer"
+      	class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer"/>
+	<bean id="jdkSerializer"
+      	class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />
+      	
+	<!-- spring-redis模板 -->
+	
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+	    <property name="connectionFactory"   ref="jedisConnectionFactory" />
+	    <property name="keySerializer" ref="keySerializer"/>  <!-- key使用String序列化方式 -->
+	    <property name="valueSerializer" ref="jackson2JsonRedisSerializer"/>
+	</bean>
+	
+	<!-- spring自己的缓存管理器，这里定义了缓存位置名称 ，即注解中的value -->
+	<bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
+	    <property name="caches">
+	        <set>
+	            <!-- 这里可以配置多个cache; 不同名称的缓存可以设置前缀用来区分缓存的类型，设置不同的超时时间或是redisTemplate，StringRedisTemplate -->
+	             
+	            <bean class="org.springframework.data.redis.cache.RedisCache">
+	                <constructor-arg name="redisOperations" ref="redisTemplate"/>
+	                <constructor-arg name="name" value="common"/>
+	                <constructor-arg name="prefix" value="COM:"/>
+	                <constructor-arg name="expiration" value="60" />
+	            </bean>
+	             
+	            <bean class="org.springframework.data.redis.cache.RedisCache">
+	                <constructor-arg name="redisOperations" ref="redisTemplate"/>
+	                <constructor-arg name="name" value="default"/>
+	                <constructor-arg name="prefix" value="DEF:"/> <!--这是通用的前缀-->
+	                <constructor-arg name="expiration" value="60"/> <!--这里的单位是秒-->
+	            </bean>
+	        </set>
+	    </property>
+	</bean>
+	<cache:annotation-driven cache-manager="cacheManager"/>
+    <!--  尝试使用Redis结束-->
+  
+    
+    <!-- 配置包扫描:告诉容器Dao这些接口的位置,容器会对这个包下的接口进行扫描,生成动态代理类,其在容器中的名字:类名(首字符小写) -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+    	<property name="basePackage" value="com.study.**.dao"></property>
+    	<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+    </bean>
+    
+</beans>
+
+
+
+
+
+
+
+

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.study.question.dao.AnswerMapper" >
+  <resultMap id="BaseResultMap" type="com.study.question.pojo.Answer" >
+    <id column="answer_id" property="answerId" jdbcType="INTEGER" />
+    <result column="answer_questionid" property="answerQuestionid" jdbcType="INTEGER" />
+    <result column="answer_createtime" property="answerCreatetime" jdbcType="TIMESTAMP" />
+    <result column="answer_userid" property="answerUserid" jdbcType="INTEGER" />
+    <result column="answer_vote" property="answerVote" jdbcType="INTEGER" />
+    <result column="answer_status" property="answerStatus" jdbcType="INTEGER" />
+    <result column="answer_modified" property="answerModified" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.study.question.pojo.Answer" extends="BaseResultMap" >
+    <result column="answer_content" property="answerContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    answer_id, answer_questionid, answer_createtime, answer_userid, answer_vote, answer_status, 
+    answer_modified
+  </sql>
+  <sql id="Blob_Column_List" >
+    answer_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from answer
+    where answer_id = #{answerId,jdbcType=INTEGER}
+  </select>
+  
+   <select id="queryAllAnswersByQuestionId" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from answer
+    where answer_questionid = #{questionId,jdbcType=INTEGER}
+  </select>
+  
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from answer
+    where answer_id = #{answerId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.study.question.pojo.Answer" >
+    insert into answer (answer_id, answer_questionid, answer_createtime, 
+      answer_userid, answer_vote, answer_status, 
+      answer_modified, answer_content)
+    values (#{answerId,jdbcType=INTEGER}, #{answerQuestionid,jdbcType=INTEGER}, #{answerCreatetime,jdbcType=TIMESTAMP}, 
+      #{answerUserid,jdbcType=INTEGER}, #{answerVote,jdbcType=INTEGER}, #{answerStatus,jdbcType=INTEGER}, 
+      #{answerModified,jdbcType=TIMESTAMP}, #{answerContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.study.question.pojo.Answer" >
+    insert into answer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="answerId != null" >
+        answer_id,
+      </if>
+      <if test="answerQuestionid != null" >
+        answer_questionid,
+      </if>
+      <if test="answerCreatetime != null" >
+        answer_createtime,
+      </if>
+      <if test="answerUserid != null" >
+        answer_userid,
+      </if>
+      <if test="answerVote != null" >
+        answer_vote,
+      </if>
+      <if test="answerStatus != null" >
+        answer_status,
+      </if>
+      <if test="answerModified != null" >
+        answer_modified,
+      </if>
+      <if test="answerContent != null" >
+        answer_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="answerId != null" >
+        #{answerId,jdbcType=INTEGER},
+      </if>
+      <if test="answerQuestionid != null" >
+        #{answerQuestionid,jdbcType=INTEGER},
+      </if>
+      <if test="answerCreatetime != null" >
+        #{answerCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="answerUserid != null" >
+        #{answerUserid,jdbcType=INTEGER},
+      </if>
+      <if test="answerVote != null" >
+        #{answerVote,jdbcType=INTEGER},
+      </if>
+      <if test="answerStatus != null" >
+        #{answerStatus,jdbcType=INTEGER},
+      </if>
+      <if test="answerModified != null" >
+        #{answerModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="answerContent != null" >
+        #{answerContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.study.question.pojo.Answer" >
+    update answer
+    <set >
+      <if test="answerQuestionid != null" >
+        answer_questionid = #{answerQuestionid,jdbcType=INTEGER},
+      </if>
+      <if test="answerCreatetime != null" >
+        answer_createtime = #{answerCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="answerUserid != null" >
+        answer_userid = #{answerUserid,jdbcType=INTEGER},
+      </if>
+      <if test="answerVote != null" >
+        answer_vote = #{answerVote,jdbcType=INTEGER},
+      </if>
+      <if test="answerStatus != null" >
+        answer_status = #{answerStatus,jdbcType=INTEGER},
+      </if>
+      <if test="answerModified != null" >
+        answer_modified = #{answerModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="answerContent != null" >
+        answer_content = #{answerContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where answer_id = #{answerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.study.question.pojo.Answer" >
+    update answer
+    set answer_questionid = #{answerQuestionid,jdbcType=INTEGER},
+      answer_createtime = #{answerCreatetime,jdbcType=TIMESTAMP},
+      answer_userid = #{answerUserid,jdbcType=INTEGER},
+      answer_vote = #{answerVote,jdbcType=INTEGER},
+      answer_status = #{answerStatus,jdbcType=INTEGER},
+      answer_modified = #{answerModified,jdbcType=TIMESTAMP},
+      answer_content = #{answerContent,jdbcType=LONGVARCHAR}
+    where answer_id = #{answerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.study.question.pojo.Answer" >
+    update answer
+    set answer_questionid = #{answerQuestionid,jdbcType=INTEGER},
+      answer_createtime = #{answerCreatetime,jdbcType=TIMESTAMP},
+      answer_userid = #{answerUserid,jdbcType=INTEGER},
+      answer_vote = #{answerVote,jdbcType=INTEGER},
+      answer_status = #{answerStatus,jdbcType=INTEGER},
+      answer_modified = #{answerModified,jdbcType=TIMESTAMP}
+    where answer_id = #{answerId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.study.user.dao.RoleMapper" >
+  <resultMap id="BaseResultMap" type="com.study.user.pojo.Role" >
+    <id column="role_id" property="roleId" jdbcType="INTEGER" />
+    <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="RoleAndRightResultMap" type="com.study.user.pojo.Role" extends="BaseResultMap">
+   	<collection property="rightList" ofType="com.study.user.pojo.Rights">
+   		 	<id column="right_id" property="rightId" jdbcType="INTEGER" />
+    		<result column="right_name" property="rightName" jdbcType="VARCHAR" />
+    		<result column="right_url" property="rightUrl" jdbcType="VARCHAR" />
+   	</collection>
+  </resultMap>
+
+   <select id="queryRoleAndRightByRoleId" resultMap="RoleAndRightResultMap"   parameterType="java.lang.Integer">
+    select a.role_id,a.role_name,b.right_id,c.right_name,c.right_url
+		from role a
+		left join  role_rights b
+		on a.role_id=b.role_id
+		left join rights c
+		on b.right_id=c.right_id
+		where a.role_id=#{roleId,jdbcType=INTEGER};
+  </select>
+
+  
+  <sql id="Base_Column_List" >
+    role_id, role_name
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from role
+    where role_id = #{roleId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="listAllRole" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from role 
+  </select>
+  
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from role
+    where role_id = #{roleId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.study.user.pojo.Role">
+    insert into role (role_id, role_name)
+    values (#{roleId,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR})
+  </insert>
+  
+  <insert id="insertSelective"  parameterType="com.study.user.pojo.Role"   useGeneratedKeys="true" keyColumn="role_id" keyProperty="roleId">
+    insert into role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        role_id,
+      </if>
+      <if test="roleName != null" >
+        role_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="roleName != null" >
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.study.user.pojo.Role" >
+    update role
+    <set >
+      <if test="roleName != null" >
+        role_name = #{roleName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where role_id = #{roleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.study.user.pojo.Role" >
+    update role
+    set role_name = #{roleName,jdbcType=VARCHAR}
+    where role_id = #{roleId,jdbcType=INTEGER}
+  </update>
+</mapper>

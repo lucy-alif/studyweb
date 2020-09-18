@@ -1,0 +1,93 @@
+@charset "utf-8";
+.loginregister {
+	width: 396px;
+	min-height: 220px;
+	text-align: center;
+	position: fixed;
+	/*固定在左上角,为了隐藏此div*/
+	border: 1px solid #ffffff;
+	background-color: #ffffff;
+	display:none;
+}
+.loginregister .input_box {
+	background: url(../img/inputBox_bg_usr.png) no-repeat left center;
+	position: relative;
+	width: 278px;
+	height: 32px;
+	border: 1px solid #d7d7d7;
+	vertical-align: middle;
+	margin: 30px auto;
+}
+.loginregister .input_box:hover{
+	border: 1px solid #31b968;
+}
+.loginregister .input_password {
+	background: url(../img/inputBox_bg_pwd.png) no-repeat left center;
+	position: relative;
+	width: 278px;
+	height: 32px;
+	border: 1px solid #d7d7d7;
+	vertical-align: middle;
+	margin: 30px auto;
+}
+.loginregister .input_password:hover{
+	border: 1px solid #31b968;
+}
+.loginregister .input_checkbox {
+	position: relative;
+	width: 278px;
+	height: 32px;
+	vertical-align: middle;
+	text-align:left;
+	margin: 30px auto;
+}
+.loginregister .input_cont {
+	position: absolute;
+	top: 6px;
+	left: 34px;
+	width: 237px;
+	border: 0;
+	background: transparent;
+	padding: 3px 0;
+	font-size: 14px;
+	line-height: 14px;
+}
+
+.loginregister .mark {
+	position: absolute;
+	top: 8px;
+	left: 286px;
+	color: #ff0000;
+}
+
+.loginregister .msg {
+	color: #ff0000;
+	text-align: left;
+	margin-top: -75px;
+	padding-left: 59px;
+	font-size: 14px;
+	line-height: 14px;
+	display: none;
+}
+
+.loginregister .btn {
+    display: inline-block;
+    height: 38px;
+    line-height: 38px;
+    width:278px;
+    background-color: #31b968;
+    color: #fff;
+    white-space: nowrap;
+    text-align: center;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    vertical-align: middle;
+    font-family:微软雅黑;
+    font-size:18px;
+}
+.loginregister .btn:hover {
+    opacity: .8;
+    filter: alpha(opacity = 80);
+    color: #fff;
+}

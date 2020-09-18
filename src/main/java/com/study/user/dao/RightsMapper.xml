@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.study.user.dao.RightsMapper" >
+  <resultMap id="BaseResultMap" type="com.study.user.pojo.Rights" >
+    <id column="right_id" property="rightId" jdbcType="INTEGER" />
+    <result column="right_name" property="rightName" jdbcType="VARCHAR" />
+    <result column="right_url" property="rightUrl" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    right_id, right_name, right_url
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from rights
+    where right_id = #{rightId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from rights
+    where right_id = #{rightId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.study.user.pojo.Rights" >
+    insert into rights (right_id, right_name, right_url
+      )
+    values (#{rightId,jdbcType=INTEGER}, #{rightName,jdbcType=VARCHAR}, #{rightUrl,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.study.user.pojo.Rights" >
+    insert into rights
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rightId != null" >
+        right_id,
+      </if>
+      <if test="rightName != null" >
+        right_name,
+      </if>
+      <if test="rightUrl != null" >
+        right_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rightId != null" >
+        #{rightId,jdbcType=INTEGER},
+      </if>
+      <if test="rightName != null" >
+        #{rightName,jdbcType=VARCHAR},
+      </if>
+      <if test="rightUrl != null" >
+        #{rightUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.study.user.pojo.Rights" >
+    update rights
+    <set >
+      <if test="rightName != null" >
+        right_name = #{rightName,jdbcType=VARCHAR},
+      </if>
+      <if test="rightUrl != null" >
+        right_url = #{rightUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where right_id = #{rightId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.study.user.pojo.Rights" >
+    update rights
+    set right_name = #{rightName,jdbcType=VARCHAR},
+      right_url = #{rightUrl,jdbcType=VARCHAR}
+    where right_id = #{rightId,jdbcType=INTEGER}
+  </update>
+</mapper>

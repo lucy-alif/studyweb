@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.study.question.dao.QuestionTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.study.question.pojo.QuestionType" >
+    <id column="questiontype_id" property="questiontypeId" jdbcType="INTEGER" />
+    <result column="questiontype_name" property="questiontypeName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    questiontype_id, questiontype_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from questiontype
+    where questiontype_id = #{questiontypeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from questiontype
+    where questiontype_id = #{questiontypeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.study.question.pojo.QuestionType" >
+    insert into questiontype (questiontype_id, questiontype_name)
+    values (#{questiontypeId,jdbcType=INTEGER}, #{questiontypeName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.study.question.pojo.QuestionType" >
+    insert into questiontype
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="questiontypeId != null" >
+        questiontype_id,
+      </if>
+      <if test="questiontypeName != null" >
+        questiontype_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="questiontypeId != null" >
+        #{questiontypeId,jdbcType=INTEGER},
+      </if>
+      <if test="questiontypeName != null" >
+        #{questiontypeName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.study.question.pojo.QuestionType" >
+    update questiontype
+    <set >
+      <if test="questiontypeName != null" >
+        questiontype_name = #{questiontypeName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where questiontype_id = #{questiontypeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.study.question.pojo.QuestionType" >
+    update questiontype
+    set questiontype_name = #{questiontypeName,jdbcType=VARCHAR}
+    where questiontype_id = #{questiontypeId,jdbcType=INTEGER}
+  </update>
+</mapper>

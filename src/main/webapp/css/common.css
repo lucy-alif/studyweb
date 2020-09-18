@@ -1,0 +1,69 @@
+@charset "utf-8";
+
+/*通用控件样式*/
+
+.checkbox {
+	font-size: 14px;
+}
+
+input[type=checkbox] {
+	display: none;
+}
+
+input[type=checkbox]+ label:before {
+	content: "\2713";
+	background-color: #ffffff;
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	border: 1px solid #31B968;
+	color: #ffffff;
+	margin: -5px 5px 0 0;
+	transition: color ease .6s;
+}
+
+input[type=checkbox]:checked+label:before {
+	content: "\2713";
+	font-weight: bold;
+	background-color: #31b968;
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	border: 1px solid #31B968;
+	color: #ffffff;
+}
+
+/* input[type=radio]+label:before { */
+/* 	content: "\26AB"; */
+/* 	border: 1px solid #31B968; */
+/* 	color:#31B968; */
+/* 	border-radius: 50%; */
+/* 	display: inline-block; */
+/* 	line-height: 22px; */
+/* 	margin: -5px 5px 0 0; */
+/* 	height: 22px; */
+/* 	width: 22px; */
+/* 	text-align: center; */
+/* 	vertical-align: middle; */
+/* 	font-size: 0; */
+/* 	transition: font-size ease .3s; */
+/* } */
+
+/* input[type=radio]:checked+label:before { */
+/* 	font-size: 22px; */
+/* } */
+
+input {
+	color: #444;
+	outline: none;
+	/*消除chrome浏览器默认的蓝色边框*/
+}
+
+input:-webkit-autofill {
+	/*消除chrome浏览器文本框默认的黄色背景*/
+	-webkit-box-shadow: 0 0 0px 1000px white inset !important;
+}

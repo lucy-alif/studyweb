@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.study.basic.dao.ClsRoomMapper" >
+  <resultMap id="BaseResultMap" type="com.study.basic.pojo.ClsRoom" >
+    <id column="clsroom_id" property="clsroomId" jdbcType="INTEGER" />
+    <result column="clsroom_name" property="clsroomName" jdbcType="VARCHAR" />
+    <result column="clsroom_status" property="clsroomStatus" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    clsroom_id, clsroom_name, clsroom_status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from clsroom
+    where clsroom_id = #{clsroomId,jdbcType=INTEGER}
+  </select>
+  
+   <select id="listAllClsRoom" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from clsroom
+  </select>
+  
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from clsroom
+    where clsroom_id = #{clsroomId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.study.basic.pojo.ClsRoom" >
+    insert into clsroom (clsroom_id, clsroom_name, clsroom_status
+      )
+    values (#{clsroomId,jdbcType=INTEGER}, #{clsroomName,jdbcType=VARCHAR}, #{clsroomStatus,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.study.basic.pojo.ClsRoom" useGeneratedKeys="true" keyColumn="clsroom_id" keyProperty="clsroomId">
+    insert into clsroom
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="clsroomId != null" >
+        clsroom_id,
+      </if>
+      <if test="clsroomName != null" >
+        clsroom_name,
+      </if>
+      <if test="clsroomStatus != null" >
+        clsroom_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="clsroomId != null" >
+        #{clsroomId,jdbcType=INTEGER},
+      </if>
+      <if test="clsroomName != null" >
+        #{clsroomName,jdbcType=VARCHAR},
+      </if>
+      <if test="clsroomStatus != null" >
+        #{clsroomStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.study.basic.pojo.ClsRoom" >
+    update clsroom
+    <set >
+      <if test="clsroomName != null" >
+        clsroom_name = #{clsroomName,jdbcType=VARCHAR},
+      </if>
+      <if test="clsroomStatus != null" >
+        clsroom_status = #{clsroomStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where clsroom_id = #{clsroomId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.study.basic.pojo.ClsRoom" >
+    update clsroom
+    set clsroom_name = #{clsroomName,jdbcType=VARCHAR},
+      clsroom_status = #{clsroomStatus,jdbcType=INTEGER}
+    where clsroom_id = #{clsroomId,jdbcType=INTEGER}
+  </update>
+</mapper>

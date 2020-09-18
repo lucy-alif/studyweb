@@ -1,0 +1,240 @@
+body {
+	margin: 0px;
+	padding: 0px;
+	font: 14px Helvetica Neue, Helvetica, PingFang SC, \5FAE\8F6F\96C5\9ED1,
+		Tahoma, Arial, sans-serif;
+}
+
+/*主页面样式*/
+#mainheader {
+	position:fixed;
+	top:0px;
+	left:0px;
+	width:100%;
+	background-color: #393D49;
+	height: 65px;
+	border-bottom: 5px solid #1AA094;
+}
+#mainaside {
+	position:fixed;
+	top:70px;
+	width: 200px;
+	background-color: #2B2E37;
+	bottom:0;
+}
+#mainaside{
+	width:200px; /*整个导航块的宽度设置成200px*/
+	font-size:12px;
+}
+#mainaside ul{
+	list-style-type:none; /*设置li前无任何样式,将li前默认的点清空*/
+	margin:0px; /*清空ul默认的外边距*/
+	padding:0px; /*清空ul默认的内边距*/
+}
+#mainaside li.firstMenu{
+	/*border-bottom:1px solid #ffffff; /*给一级菜单每个li添加一根下边框*/	
+}
+#mainaside li a{
+	display:block; /*设置成块级元素*/
+	height:45px;
+	line-height:45px;
+	width:165px;
+	padding:5px 5px 5px 25px; /*设置超链接在li中四个方向上的内边距,em为相对单位,相对当前字体的大小,此处1em=14px*/
+	text-decoration:none;/*去掉超链接的下划线*/
+	border-left:5px solid #393D49; /*设置一级菜单的左边边框*/
+}
+#mainaside li a:link,#mainaside li a:visited{
+	background-color:#2B2E37; /*超链接未访问和访问过的背景色*/
+	color:#ffffff;  /*超链接未访问和访问过的文字颜色*/
+}
+#mainaside li a:hover{
+	background-color:#434856; /*鼠标移入时的超链接背景色*/
+	/*color:#ffff00; /*鼠标移入时的超链接文字颜色*/
+	border-left:5px solid #5FB878; /*设置一级菜单的左边边框*/
+}
+
+#mainaside ul li ul{
+	list-style-type:none; /*设置li前无任何样式,将li前默认的点清空*/
+	margin:0px; /*清空ul默认的外边距*/
+	padding:0px; /*清空ul默认的内边距*/
+}
+
+#mainaside ul li ul li{
+	border-top:1px solid #ffffff; /*给二级菜单每个li添加一根下边框*/
+	height:45px;
+	line-height:45px;
+}
+
+#mainaside ul li ul li a{
+	display:block; /*设置成块级元素*/
+	width:150px;
+	padding:5px 5px 5px 45px;/*设置超链接在li中四个方向上的内边距,em为相对单位,相对当前字体的大小,此处1em=12px*/
+	text-decoration:none;/*去掉超链接的下划线*/
+	border-left:0px;  /*设置二级菜单的左边边框*/
+	/*border-right:1px solid #036db0;	 /*设置二级菜单的右边边框*/
+}
+#mainaside ul li ul li a:link,#mainaside ul li ul li a:visited{
+	background-color:#324856;/*超链接未访问和访问过的背景色*/
+	color:#BDBDBE; /*超链接未访问和访问过的文字颜色*/
+	border-left:0px; 
+}
+#mainaside ul li ul li a:hover{
+	background-color:#324856; /*鼠标移入时的超链接背景色*/
+	color:#ffffff;/*鼠标移入时的超链接文字颜色*/
+}
+
+#mainaside li a.high{
+	background-color:#2B2E37; 
+}
+#mainaside ul li ul.display{
+	display:block; /*隐藏内容*/
+}
+#mainaside ul li .secondMenu{
+	display:none; /*隐藏内容*/
+}
+#maincontent {
+	position:fixed;
+	left:200px;
+	top:70px;
+	right:0px;
+	width:auto;
+}
+/*主页面样式*/
+/*操作页面样式*/
+.crumb{
+	background-color:#F2F2F2;
+	border-left:5px solid #33A7FE;
+	padding-left:10px;
+	height:60px;
+	line-height:60px;
+	position:relative;
+}
+.breadcrumb a {
+    padding-right: 8px;
+    line-height: 22px;
+    font-size: 14px;
+    color: #333 !important;
+    text-decoration: none;
+}
+.operatebar{
+	display:inline-block;
+	line-height:60px;
+	height:60px;
+	position:absolute;
+	right:20px;
+}
+#container {
+	margin: 30px 20px 0 20px;
+}
+/*操作页面样式*/
+/*按钮样式开始*/
+.btn {
+    display: inline-block;
+    height: 38px;
+    line-height: 38px;
+    padding: 0 18px;
+    background-color: #009688;
+    color: #fff;
+    white-space: nowrap;
+    text-align: center;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    vertical-align: middle;
+    font-family:微软雅黑;
+}
+.btn:hover {
+    opacity: .8;
+    filter: alpha(opacity = 80);
+    color: #fff;
+}
+.normal{
+	background-color: #1E9FFF;
+}
+/*按钮样式结束*/
+/*数据表格样式*/
+#tabledata {
+	margin-top: 50px;
+}
+table {
+	table-layout: fixed;
+	empty-cells: show;
+	border-collapse: collapse;
+	width: 100%;
+}
+td {
+	height: 30px;
+}
+.table {
+	border: 1px solid #cad9ea;
+	color: #666;
+}
+.table th {
+	background-color: #33A7FE;
+	color: #ffffff;
+	height: 30px;
+	font-weight:normal;
+}
+.table th.timedata {
+	width: 200px;
+}
+.table td,.table th {
+	border: 1px solid #cad9ea;
+	padding: 0 1em 0;
+}
+.table td {
+	text-align: center;
+}
+table a{
+	text-decoration: none;
+}
+/*数据表格样式*/
+.errormsg{ /*错误消息样式*/
+	margin-top:10px;
+	margin-left:10px;
+	display:inline-block;
+	min-width:20px;
+	color:#ff0000;
+	text-align:center;
+}
+.rightmsg{ /*正确消息样式*/
+	margin-top:10px;
+	margin-left:10px;
+	display:inline-block;
+	min-width:20px;
+	color:#0000FF;
+	text-align:center;
+}
+/*分页表格样式*/
+.pagetools{
+	text-align:right;
+}
+/*分页表格样式*/
+/*操作窗口样式开始*/
+
+#sublayer{
+	display:none;
+}
+.operatewin {
+	line-height: 52px;
+}
+.operatewin .form-label {
+	margin: 0 20px;
+	display: inline-block;
+}
+.operatewin .input-inline {
+	display: inline-block;
+}
+.operatewin .txt {
+	width: 180px;
+}
+.operatewin .rdo {
+	width: 25px;
+}
+.editform{
+	width:320px;
+	margin:25px auto;
+	text-align:left;
+}
+/*弹出窗口样式结束*/
+

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.study.charts.dao.VoteHistoryMapper" >
+  <resultMap id="BaseResultMap" type="com.study.charts.pojo.VoteHistory" >
+    <id column="history_id" property="historyId" jdbcType="INTEGER" />
+    <result column="history_questionid" property="historyQuestionid" jdbcType="INTEGER" />
+    <result column="history_answerid" property="historyAnswerid" jdbcType="INTEGER" />
+    <result column="history_userid" property="historyUserid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    history_id, history_questionid, history_answerid, history_userid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from votehistory
+    where history_id = #{historyId,jdbcType=INTEGER}
+  </select>
+  
+    <select id="showAllVote" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from votehistory
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from votehistory
+    where history_id = #{historyId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.study.charts.pojo.VoteHistory" >
+    insert into votehistory (history_id, history_questionid, history_answerid, 
+      history_userid)
+    values (#{historyId,jdbcType=INTEGER}, #{historyQuestionid,jdbcType=INTEGER}, #{historyAnswerid,jdbcType=INTEGER}, 
+      #{historyUserid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.study.charts.pojo.VoteHistory" >
+    insert into votehistory
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="historyId != null" >
+        history_id,
+      </if>
+      <if test="historyQuestionid != null" >
+        history_questionid,
+      </if>
+      <if test="historyAnswerid != null" >
+        history_answerid,
+      </if>
+      <if test="historyUserid != null" >
+        history_userid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="historyId != null" >
+        #{historyId,jdbcType=INTEGER},
+      </if>
+      <if test="historyQuestionid != null" >
+        #{historyQuestionid,jdbcType=INTEGER},
+      </if>
+      <if test="historyAnswerid != null" >
+        #{historyAnswerid,jdbcType=INTEGER},
+      </if>
+      <if test="historyUserid != null" >
+        #{historyUserid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.study.charts.pojo.VoteHistory" >
+    update votehistory
+    <set >
+      <if test="historyQuestionid != null" >
+        history_questionid = #{historyQuestionid,jdbcType=INTEGER},
+      </if>
+      <if test="historyAnswerid != null" >
+        history_answerid = #{historyAnswerid,jdbcType=INTEGER},
+      </if>
+      <if test="historyUserid != null" >
+        history_userid = #{historyUserid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where history_id = #{historyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.study.charts.pojo.VoteHistory" >
+    update votehistory
+    set history_questionid = #{historyQuestionid,jdbcType=INTEGER},
+      history_answerid = #{historyAnswerid,jdbcType=INTEGER},
+      history_userid = #{historyUserid,jdbcType=INTEGER}
+    where history_id = #{historyId,jdbcType=INTEGER}
+  </update>
+</mapper>

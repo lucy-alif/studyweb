@@ -1,0 +1,1 @@
+<jsp:forward page="/WEB-INF/jsp/back/login.jsp"></jsp:forward>
